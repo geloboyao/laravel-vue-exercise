@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/fibonacci', 'FibonacciController@show');
+Route::post('/sort', 'SortController@show');

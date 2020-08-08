@@ -18,7 +18,8 @@
 
   <body>
     <div id="app" class="content">
-      <fibonacci-component></fibonacci-component>
+      {{-- <fibonacci-component></fibonacci-component> --}}
+      <sort-component></sort-component>
     </div>
 
     <script src="js/app.js"></script>
