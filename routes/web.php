@@ -13,6 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', 'FibonacciController@index');
-Route::get('/', 'SortController@index');
-Route::get('/test', 'FibonacciController@test');
+Route::get('/', 'HomeController@index');

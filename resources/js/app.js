@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('fibonacci-component', require('./components/FibonacciComponent.vue').default);
 Vue.component('sort-component', require('./components/SortComponent.vue').default);
+Vue.component('employee-template', require('./components/EmployeeTemplateComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

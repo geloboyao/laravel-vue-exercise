@@ -20,6 +20,7 @@ class CreateEmployeesTable extends Migration
             $table->text('position');
             $table->date('birth_date');
             $table->timestamps();
+            $table->softDeletes('deleted_at');
         });
     }
 

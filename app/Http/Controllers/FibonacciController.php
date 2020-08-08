@@ -8,12 +8,6 @@ use App\Http\Controllers\Controller as Controller;
 
 class FibonacciController extends Controller
 {
-    public function index()
-    {
-        return view('layout')
-            ->with('title', 'Fibonacci');
-    }
-
     public function show(Request $request)
     {
         if ($request->input == 1) {
