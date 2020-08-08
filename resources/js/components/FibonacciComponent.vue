@@ -69,38 +69,55 @@
       }
     },
     methods: {
-      async update(input) {
-        let response = await window.axios.post(`/api/fibonacci`, { input });
+      async submitForm(e) {
+        this.errors = [];
+        this.output = '';
 
-        if (response['data']['status'] == 'failed') {
-          this.errors.push('No sequence detected');
+        var tempInput = this.input;
+
+        this.input = Number(this.input);
+
+        if (this.input.toString() != tempInput) {
+          this.errors.push('Your number is too big');
           return;
         }
 
-        this.output = response['data']['answer'];
-      },
-      async submitForm(e) {
-        this.validate(e);
-
-        if (this.errors.length < 1) {
-          this.update(this.input);
-        }
-      },
-      async validate() {
-        this.errors = [];
-
-        this.input = parseInt(this.input);
-
         if (!Number.isInteger(this.input)) {
           this.errors.push('Sequence must be integer');
-          this.input = '';
-          this.output = '';
+          return;
         }
 
         if (this.errors.length) {
           e.preventDefault();
+          return;
+        }
+
+        if (this.errors.length < 1) {
+          this.findSequence();
         }
       },
+      findSequence() {
+        if (this.input == 1) {
+          this.output = 1;
+        }
+
+        var num1 = 1;
+        var num2 = 1;
+
+        for (var i = 3; ; i++) {
+            var temp = num1 + num2;
+            num1 = num2;
+            num2 = temp;
+
+          if (temp == this.input) {
+            this.output = i;
+            break;
+          } else if (temp > this.input) {
+            this.errors.push('No sequence detected');
+            break;
+          }
+        }
+      }
     },
     created() {
     },

@@ -38,20 +38,4 @@ class FibonacciController extends Controller
             }
         }
     }
-
-    public function test()
-    {
-        $key = 33 - 2;
-
-        $num1 = 1;
-        $num2 = 1;
-
-        for ($i = 0; $i < $key; $i++) {
-            $temp = $num1 + $num2;
-            $num1 = $num2;
-            $num2 = $temp;
-        }
-
-        echo json_encode(['answer' => $num2]);
-    }
 }

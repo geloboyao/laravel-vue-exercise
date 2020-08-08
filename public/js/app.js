@@ -1998,36 +1998,55 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
-    update: function update(input) {
+    submitForm: function submitForm(e) {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
+        var tempInput;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return window.axios.post("/api/fibonacci", {
-                  input: input
-                });
+                _this.errors = [];
+                _this.output = '';
+                console.log(_this.input);
+                tempInput = _this.input;
+                _this.input = Number(_this.input);
 
-              case 2:
-                response = _context.sent;
-
-                if (!(response['data']['status'] == 'failed')) {
-                  _context.next = 6;
+                if (!(_this.input.toString() != tempInput)) {
+                  _context.next = 8;
                   break;
                 }
 
-                _this.errors.push('No sequence detected');
+                _this.errors.push('Your number is too big');
 
                 return _context.abrupt("return");
 
-              case 6:
-                _this.output = response['data']['answer'];
+              case 8:
+                if (Number.isInteger(_this.input)) {
+                  _context.next = 11;
+                  break;
+                }
 
-              case 7:
+                _this.errors.push('Sequence must be integer');
+
+                return _context.abrupt("return");
+
+              case 11:
+                if (!_this.errors.length) {
+                  _context.next = 14;
+                  break;
+                }
+
+                e.preventDefault();
+                return _context.abrupt("return");
+
+              case 14:
+                if (_this.errors.length < 1) {
+                  _this.findSequence();
+                }
+
+              case 15:
               case "end":
                 return _context.stop();
             }
@@ -2035,57 +2054,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    submitForm: function submitForm(e) {
-      var _this2 = this;
+    findSequence: function findSequence() {
+      if (this.input == 1) {
+        this.output = 1;
+      }
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _this2.validate(e);
+      var num1 = 1;
+      var num2 = 1;
 
-                if (_this2.errors.length < 1) {
-                  _this2.update(_this2.input);
-                }
+      for (var i = 3;; i++) {
+        var temp = num1 + num2;
+        num1 = num2;
+        num2 = temp;
 
-              case 2:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
-    },
-    validate: function validate() {
-      var _this3 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _this3.errors = [];
-                _this3.input = parseInt(_this3.input);
-
-                if (!Number.isInteger(_this3.input)) {
-                  _this3.errors.push('Sequence must be integer');
-
-                  _this3.input = '';
-                  _this3.output = '';
-                }
-
-                if (_this3.errors.length) {
-                  e.preventDefault();
-                }
-
-              case 4:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
+        if (temp == this.input) {
+          this.output = i;
+          break;
+        } else if (temp > this.input) {
+          this.errors.push('No sequence detected');
+          break;
+        }
+      }
     }
   },
   created: function created() {}
